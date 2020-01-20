@@ -18,11 +18,23 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         messageLabel.text = ""
     }
-
-
+    
+    
     @IBAction func messageButtonPressed(_ sender: UIButton) {
-        messageLabel.text = "You Are Awesome!"
-        imageView.image = UIImage(named: "Dog1")
+        let awesomeMessage = "You Are Awesome!"
+        let greatMessage = "You Are Great!"
+        let fantasticMessage = "You Are Fantastic!"
+        
+        if messageLabel.text == fantasticMessage {
+            messageLabel.text = greatMessage
+            imageView.image = UIImage(named: "Dog2")
+        } else if messageLabel.text == greatMessage {
+            messageLabel.text = awesomeMessage
+            imageView.image = UIImage(named: "Dog0")
+        } else {
+            messageLabel.text = fantasticMessage
+            imageView.image = UIImage(named: "Dog1")
+        }
     }
 }
 
