@@ -13,6 +13,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     var imageNumber = 0
+    let messages = ["You Are Awesome!",
+                    "You Are Great!",
+                    "You Are Fantastic!",
+                    "You Are The Best!",
+                    "You're Phenomenal!",
+                    "You're Exceptional!",
+                    "You're Amazing!"]
+    var messageNumber = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,15 +28,22 @@ class ViewController: UIViewController {
         messageLabel.text = ""
     }
     
-    
     @IBAction func messageButtonPressed(_ sender: UIButton) {
         
+        // modify image
         print(imageNumber)
         let imageName = "Dog\(imageNumber)"
         imageView.image = UIImage(named: imageName)
         imageNumber += 1
         if imageNumber == 7 {
             imageNumber = 0
+        }
+        
+        // modify message
+        messageLabel.text = messages[messageNumber]
+        messageNumber += 1
+        if messageNumber == messages.count {
+            messageNumber = 0
         }
         
         
