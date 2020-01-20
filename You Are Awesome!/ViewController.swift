@@ -10,8 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
-    
     @IBOutlet weak var imageView: UIImageView!
+    
+    var imageNumber = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,20 +22,30 @@ class ViewController: UIViewController {
     
     
     @IBAction func messageButtonPressed(_ sender: UIButton) {
-        let awesomeMessage = "You Are Awesome!"
-        let greatMessage = "You Are Great!"
-        let fantasticMessage = "You Are Fantastic!"
         
-        if messageLabel.text == fantasticMessage {
-            messageLabel.text = greatMessage
-            imageView.image = UIImage(named: "Dog2")
-        } else if messageLabel.text == greatMessage {
-            messageLabel.text = awesomeMessage
-            imageView.image = UIImage(named: "Dog0")
-        } else {
-            messageLabel.text = fantasticMessage
-            imageView.image = UIImage(named: "Dog1")
+        print(imageNumber)
+        let imageName = "Dog\(imageNumber)"
+        imageView.image = UIImage(named: imageName)
+        imageNumber += 1
+        if imageNumber == 7 {
+            imageNumber = 0
         }
+        
+        
+        //        let awesomeMessage = "You Are Awesome!"
+        //        let greatMessage = "You Are Great!"
+        //        let fantasticMessage = "You Are Fantastic!"
+        //
+        //        if messageLabel.text == fantasticMessage {
+        //            messageLabel.text = greatMessage
+        //            imageView.image = UIImage(named: "Dog2")
+        //        } else if messageLabel.text == greatMessage {
+        //            messageLabel.text = awesomeMessage
+        //            imageView.image = UIImage(named: "Dog0")
+        //        } else {
+        //            messageLabel.text = fantasticMessage
+        //            imageView.image = UIImage(named: "Dog1")
+        //        }
     }
 }
 
