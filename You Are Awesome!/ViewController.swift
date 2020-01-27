@@ -19,6 +19,8 @@ class ViewController: UIViewController {
                     "You're Phenomenal!",
                     "You're Exceptional!",
                     "You're Amazing!"]
+    var messageNumber: Int = -1
+    var imageNumber: Int = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,27 +31,20 @@ class ViewController: UIViewController {
     @IBAction func messageButtonPressed(_ sender: UIButton) {
         
         // modify image randomly chosen
-        let imageName = "Dog\(Int.random(in: 0...6))"
-        imageView.image = UIImage(named: imageName)
+        var newImageNumber: Int
+        repeat {
+            newImageNumber = Int.random(in: 0...6)
+        } while imageNumber == newImageNumber
+        imageNumber = newImageNumber
+        imageView.image = UIImage(named: "Dog\(imageNumber)")
         
         // modify message
-        messageLabel.text = messages[Int.random(in: 0...messages.count - 1)]
-        
-        
-        //        let awesomeMessage = "You Are Awesome!"
-        //        let greatMessage = "You Are Great!"
-        //        let fantasticMessage = "You Are Fantastic!"
-        //
-        //        if messageLabel.text == fantasticMessage {
-        //            messageLabel.text = greatMessage
-        //            imageView.image = UIImage(named: "Dog2")
-        //        } else if messageLabel.text == greatMessage {
-        //            messageLabel.text = awesomeMessage
-        //            imageView.image = UIImage(named: "Dog0")
-        //        } else {
-        //            messageLabel.text = fantasticMessage
-        //            imageView.image = UIImage(named: "Dog1")
-        //        }
+        var newMessageNumber: Int
+        repeat {
+            newMessageNumber = Int.random(in: 0...messages.count - 1)
+        } while messageNumber == newMessageNumber
+        messageNumber = newMessageNumber
+        messageLabel.text = messages[messageNumber]
     }
 }
 
