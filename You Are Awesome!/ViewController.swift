@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
@@ -21,6 +22,9 @@ class ViewController: UIViewController {
                     "You're Amazing!"]
     var messageNumber: Int = -1
     var imageNumber: Int = -1
+    let totalImages = 6
+    var audioPlayer = AVAudioPlayer()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +37,7 @@ class ViewController: UIViewController {
         // modify image randomly chosen
         var newImageNumber: Int
         repeat {
-            newImageNumber = Int.random(in: 0...6)
+            newImageNumber = Int.random(in: 0...totalImages)
         } while imageNumber == newImageNumber
         imageNumber = newImageNumber
         imageView.image = UIImage(named: "Dog\(imageNumber)")
@@ -45,6 +49,17 @@ class ViewController: UIViewController {
         } while messageNumber == newMessageNumber
         messageNumber = newMessageNumber
         messageLabel.text = messages[messageNumber]
+        
+        if let sound = NSDataAsset(name: "sound0") {
+            do {
+                try audioPlayer = AVAudioPlayer(data: sound.data)
+                audioPlayer.play()
+            } catch {
+                print("Error: \(error.localizedDescription) Could not initialize AVAudioPlayer object")
+            }
+        } else {
+            print("Error: could not read sound from file sound0")
+        }
     }
 }
 
