@@ -24,6 +24,8 @@ class ViewController: UIViewController {
     var imageNumber: Int = -1
     let totalImages = 6
     var audioPlayer = AVAudioPlayer()
+    let totalSounds = 4
+    var soundNumber = -1
     
     
     override func viewDidLoad() {
@@ -32,25 +34,9 @@ class ViewController: UIViewController {
         messageLabel.text = ""
     }
     
-    @IBAction func messageButtonPressed(_ sender: UIButton) {
+    func playSound(_ soundName: String) {
         
-        // modify image randomly chosen
-        var newImageNumber: Int
-        repeat {
-            newImageNumber = Int.random(in: 0...totalImages)
-        } while imageNumber == newImageNumber
-        imageNumber = newImageNumber
-        imageView.image = UIImage(named: "Dog\(imageNumber)")
-        
-        // modify message
-        var newMessageNumber: Int
-        repeat {
-            newMessageNumber = Int.random(in: 0...messages.count - 1)
-        } while messageNumber == newMessageNumber
-        messageNumber = newMessageNumber
-        messageLabel.text = messages[messageNumber]
-        
-        if let sound = NSDataAsset(name: "sound0") {
+        if let sound = NSDataAsset(name: soundName) {
             do {
                 try audioPlayer = AVAudioPlayer(data: sound.data)
                 audioPlayer.play()
@@ -58,8 +44,36 @@ class ViewController: UIViewController {
                 print("Error: \(error.localizedDescription) Could not initialize AVAudioPlayer object")
             }
         } else {
-            print("Error: could not read sound from file sound0")
+            print("Error: could not read sound from file \(soundName)")
         }
+        
+    }
+    
+    func nonRepeatingRandom(originalNumber: Int, upperBounds: Int) -> Int {
+        
+        var newNumber: Int
+        repeat {
+            newNumber = Int.random(in: 0...upperBounds)
+        } while newNumber == originalNumber
+        
+        return newNumber
+        
+    }
+    
+    @IBAction func messageButtonPressed(_ sender: UIButton) {
+        
+        // modify image randomly chosen
+        imageNumber = nonRepeatingRandom(originalNumber: imageNumber, upperBounds: totalImages - 1)
+        imageView.image = UIImage(named: "Dog\(imageNumber)")
+        
+        // modify message
+        messageNumber = nonRepeatingRandom(originalNumber: messageNumber, upperBounds: messages.count - 1)
+        messageLabel.text = messages[messageNumber]
+        
+        // modify sound
+        soundNumber = nonRepeatingRandom(originalNumber: soundNumber, upperBounds: totalSounds - 1)
+        playSound("sound\(soundNumber)")
+        
     }
 }
 
